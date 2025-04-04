@@ -75,6 +75,6 @@ export class TodoList {
      */
     public loadFromLocalStorage(): void {
         const loadedTodos: Array<ITodo> | null = UStorage.getItem<Array<ITodo>>("todos");
-        loadedTodos ? this.todos = loadedTodos : ErrorHandler.logError("LS-Todo-0", "Ladda in todos", "Kunde inte ladda in todos från localStorage.");
+        loadedTodos ? this.todos = loadedTodos : ErrorHandler.logError("LS-Todo-0", "Tom lista", "Det finns inga todos ännu!");
     }
 }

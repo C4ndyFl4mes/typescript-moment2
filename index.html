@@ -1,13 +1,40 @@
 <!doctype html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/styles/main.scss">
-    <script type="module" src="/src/scripts/main.ts"></script>
-    <title>Index</title>
-  </head>
-  <body>
-    <a href="src/pages/template.html">Template</a>
-  </body>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="/src/styles/main.scss">
+	<script type="module" src="/src/scripts/main.ts"></script>
+	<title>Index</title>
+</head>
+
+<body>
+	<header></header>
+	<main>
+		<h1>TodoList</h1>
+		<div class="todo-frame">
+			<div id="todo-list"></div>
+			<div class="todo-add-section">
+				<div class="inputs">
+					<label>
+						<span>Uppdrag</span>
+						<input type="text" id="task-input">
+					</label>
+					<label>
+						<span>Prioritet</span>
+						<input type="number" id="priority-input">
+					</label>
+					<div class="submit-area">
+						<label>
+							<span>Vill du lägga till en ny todo?</span>
+							<button id="submit-todo">Lägg till</button>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
 </html>

@@ -6,7 +6,7 @@ import { ErrorDisplay } from "./ErrorDisplay";
  */
 
 export class ErrorHandler {
-    private static errors: Array<IError>;
+    private static errors: Array<IError> = [];
 
     /**
      * Loggar felmeddelanden.

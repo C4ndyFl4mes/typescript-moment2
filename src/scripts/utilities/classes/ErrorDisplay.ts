@@ -18,6 +18,8 @@ export class ErrorDisplay {
 
         // Får se vilket element den kommer att hamna i.
         // document.body.appendChild(this.container); 
+        const addSection: Element | null = document.getElementsByClassName("todo-add-section")[0];
+        addSection.appendChild(this.container);
     }
 
     /**
