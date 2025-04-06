@@ -10,7 +10,13 @@ $base-theme: (
     "link-normal": var.$link-normal-color,
     "link-visited": var.$link-visited-color,
     "link-active": var.$link-active-color,
-    "todo-bg-color": var.$lith-todo-bg-color
+    "todo-bg-color": var.$lith-todo-bg-color,
+    "primary-btn-bg-color": var.$primary-btn-bg-color,
+    "primary-btn-fg-color": var.$primary-btn-fg-color,
+    "primary-hover-btn-bg-color": var.$primary-hover-btn-bg-color,
+    "primary-active-btn-bg-color": var.$primary-active-btn-bg-color,
+    "primary-btn-border-color": var.$primary-btn-border-color,
+    "primary-active-btn-border-color": var.$primary-active-btn-border-color
     // ...
 );
 

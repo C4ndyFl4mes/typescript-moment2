@@ -11,35 +11,62 @@ class Main {
     private static taskIINPUT = document.getElementById("task-input") as HTMLInputElement | null;
     private static priorityINPUT = document.getElementById("priority-input") as HTMLInputElement | null;
     private static submitTodoBTN: HTMLElement | null = document.getElementById("submit-todo");
+    private static todoList: TodoList;
+
+    // List Controls:
+    private static resetListBTN: HTMLElement | null = document.getElementById("reset-tasks-btn");
+    private static removeCompletedTasksBTN: HTMLElement | null = document.getElementById("remove-completed-tasks-btn");
+    private static showAllTasksBTN: HTMLElement | null = document.getElementById("show-all-tasks-btn");
+    private static showOnlyIncompletedTasks: HTMLElement | null = document.getElementById("show-only-incompleted-tasks-btn");
 
     static init(): void {
         const todos: Array<ITodo> = [];
-        const todoList = new TodoList(todos);
+        this.todoList = new TodoList(todos);
         
         this.submitTodoBTN?.addEventListener("click", () => {
             if (this.taskIINPUT && this.priorityINPUT) {
-                if (todoList.addTodo(this.taskIINPUT.value.trim(), Number(this.priorityINPUT.value))) {
+                if (this.todoList.addTodo(this.taskIINPUT.value.trim(), Number(this.priorityINPUT.value))) {
                     ErrorHandler.removeError("INPUT-0");
                     ErrorHandler.reloadErrors();
-                    this.renderTodos(todoList);
-                    todoList.saveToLocalStorage();
+                    this.renderTodos(this.todoList.getTodos());
+                    this.todoList.saveToLocalStorage();
+                    this.taskIINPUT.value = "";
                 } else {
                     ErrorHandler.logError("INPUT-0", "Fel vid inmatning", `Antingen är uppdraget eller prioritet fel.`);
                 }
             }
         });
 
-        todoList.loadFromLocalStorage();
-        this.renderTodos(todoList);
+        this.resetListBTN?.addEventListener("click", () => {
+            this.todoList.reset();
+            this.renderTodos(this.todoList.getTodos());
+        });
+
+        this.removeCompletedTasksBTN?.addEventListener("click", () => {
+            this.todoList.removeCompletedTasks();
+            this.todoList.saveToLocalStorage();
+            this.renderTodos(this.todoList.getTodos());
+        });
+
+        this.showAllTasksBTN?.addEventListener("click", () => {
+            this.renderTodos(this.todoList.getTodos());
+        });
+
+        this.showOnlyIncompletedTasks?.addEventListener("click", () => {
+            this.renderTodos(this.todoList.showOnlyIncompletedTasks());
+        });
+
+        this.todoList.loadFromLocalStorage();
+        this.renderTodos(this.todoList.getTodos());
     }
 
     /**
      * Renderar ut alla todos på webbsidan.
-     * @param todoList instansen av TodoList.
+     * @param todos en lista av todos.
      */
-    private static renderTodos(todoList: TodoList): void {
+    private static renderTodos(todos: Array<ITodo>): void {
         this.todoListDIV!.innerHTML = "";
-        todoList.getTodos().forEach(todo => {
+        todos.forEach(todo => {
             const todoDIV: HTMLElement = document.createElement("div");
             todoDIV.className = "todo-item";
             todoDIV.style.borderLeftColor = `#${todo.hexID}`;
@@ -60,9 +87,9 @@ class Main {
             completedINPUT.checked = todo.completed;
 
             completedINPUT.addEventListener("change", () => {
-                const index: number = todoList.getTodos().indexOf(todo);
+                const index: number = todos.indexOf(todo);
                 if (index !== -1) {
-                    todoList.markTodoCompleted(index);
+                    this.todoList.markTodoCompleted(index);
                 }
             });
             

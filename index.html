@@ -29,11 +29,17 @@
 				<div class="submit-area">
 					<label>
 						<span>Vill du lägga till en ny todo?</span>
-						<button id="submit-todo">Lägg till</button>
+						<button id="submit-todo" class="button">Lägg till</button>
 					</label>
 				</div>
 			</div>
 			<h2>Lista</h2>
+			<div class="list-controls">
+				<button id="reset-tasks-btn" class="button">Nollställ lista</button>
+				<button id="remove-completed-tasks-btn" class="button">Ta bort avklarade</button>
+				<button id="show-only-incompleted-tasks-btn" class="button">Visa endast oavklarade</button>
+				<button id="show-all-tasks-btn" class="button">Visa alla</button>
+			</div>
 			<div id="todo-list"></div>
 		</div>
 	</main>

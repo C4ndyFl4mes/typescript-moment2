@@ -30,7 +30,7 @@ export class TodoList {
      */
     public addTodo(task: string, priority: number): boolean {
         const prio: TPriority | null = toTPriority(priority);
-        if (prio && task.length <= 100) {
+        if (prio && task !== "") {
             const todo: ITodo = {
                 task: task,
                 completed: false,
@@ -38,6 +38,7 @@ export class TodoList {
                 hexID: this.randomHexID()
             };
             this.todos.push(todo);
+            this.sortByPriority();
             return true;
         } else {
             return false;
@@ -54,6 +55,13 @@ export class TodoList {
             this.randomHexID();
         }
         return hexID;
+    }
+
+     /**
+     * Sorterar todos.
+     */
+     private sortByPriority(): void {
+        this.todos.sort((a, b) => b.priority - a.priority);
     }
 
     /**
@@ -90,5 +98,29 @@ export class TodoList {
     public loadFromLocalStorage(): void {
         const loadedTodos: Array<ITodo> | null = UStorage.getItem<Array<ITodo>>("todos");
         loadedTodos ? this.todos = loadedTodos : ErrorHandler.logError("LS-Todo-0", "Tom lista", "Det finns inga todos ännu!");
+    }
+
+    /**
+    * Visar endast oavklarade uppgifter.
+    * @returns filtrerad lista av todos.
+    */
+    public showOnlyIncompletedTasks(): Array<ITodo> {
+        const unfilteredCopy: Array<ITodo> = this.todos;
+        return unfilteredCopy.filter(todo => !todo.completed);
+    }
+
+    /**
+     * Raderar alla avklarade uppdrag.
+     */
+    public removeCompletedTasks(): void {
+        this.todos = this.todos.filter(todo => !todo.completed);
+    }
+
+    /**
+     * Nollställer listan.
+     */
+    public reset(): void {
+        this.todos = [];
+        UStorage.clearSpecificItem("todos");
     }
 }

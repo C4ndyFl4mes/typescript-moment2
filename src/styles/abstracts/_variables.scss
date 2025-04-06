@@ -21,6 +21,14 @@ $dath-primary-bg-color: #000;
 $dath-primary-fg-color: #fff;
 // ...
 
+// Button
+$primary-btn-bg-color: #4c66f7;
+$primary-btn-fg-color: #fff;
+$primary-btn-border-color: #0c2ad4;
+$primary-hover-btn-bg-color: color.adjust($primary-btn-bg-color, $lightness: -3.75%);
+$primary-active-btn-bg-color: color.adjust($primary-btn-bg-color, $lightness: -7.5%);
+$primary-active-btn-border-color: color.adjust($primary-btn-border-color, $lightness: -7.5%);
+
 $link-normal-color: #00f;
 $link-active-color: color.adjust($link-normal-color, $lightness: -15%);
 $link-visited-color: color.adjust($link-normal-color, $lightness: -30%);
