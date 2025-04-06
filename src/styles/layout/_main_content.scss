@@ -61,7 +61,15 @@ h1 {
     }
 
 }
-
+#error-container {
+    margin-top: 2rem;
+    gap: 1rem;
+}
+.error-item {
+    padding: 0.5rem;
+    background-color: #ffa7a788;
+    border-radius: 20px;
+}
 .list-controls {
     padding: 0.25rem;
     margin-bottom: 0.5rem;
