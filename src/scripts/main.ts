@@ -42,24 +42,34 @@ class Main {
         todoList.getTodos().forEach(todo => {
             const todoDIV: HTMLElement = document.createElement("div");
             todoDIV.className = "todo-item";
+            todoDIV.style.borderLeftColor = `#${todo.hexID}`;
+            todoDIV.style.borderRightColor = `#${todo.hexID}`;
 
-            const priorityH2: HTMLElement = document.createElement("h2");
-            todo.priority ? priorityH2.textContent = String(todo.priority) : ErrorHandler.logError("OUTPUT-0", "Fel vid utmatning", "Kunde inte skriva ut priority.");
+            const priorityH3: HTMLElement = document.createElement("h3");
+            todo.priority ? priorityH3.textContent = String(todo.priority) : ErrorHandler.logError("OUTPUT-0", "Fel vid utmatning", "Kunde inte skriva ut priority.");
             
             const taskLABEL: HTMLElement = document.createElement("label");
-            const taskSPAN: HTMLElement = document.createElement("span");
-            taskSPAN.textContent = todo.task;
+            taskLABEL.setAttribute("for", todo.hexID);
+            taskLABEL.textContent = todo.task;
 
+            
             const completedINPUT = document.createElement("input") as HTMLInputElement;
+            completedINPUT.className = "todo-checkbox";
+            completedINPUT.id = todo.hexID;
             completedINPUT.type = "checkbox";
             completedINPUT.checked = todo.completed;
 
-            taskLABEL.appendChild(taskSPAN);
-            taskLABEL.appendChild(completedINPUT);
+            completedINPUT.addEventListener("change", () => {
+                const index: number = todoList.getTodos().indexOf(todo);
+                if (index !== -1) {
+                    todoList.markTodoCompleted(index);
+                }
+            });
+            
 
-            todoDIV.appendChild(priorityH2);
+            todoDIV.appendChild(priorityH3);
             todoDIV.appendChild(taskLABEL);
-
+            todoDIV.appendChild(completedINPUT);
             this.todoListDIV?.appendChild(todoDIV);
         });
     }

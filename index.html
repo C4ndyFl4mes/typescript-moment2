@@ -12,27 +12,29 @@
 <body>
 	<header></header>
 	<main>
-		<h1>TodoList</h1>
+		<h1>Att göra-lista</h1>
 		<div class="todo-frame">
-			<div id="todo-list"></div>
+			<h2>Hantera</h2>
 			<div class="todo-add-section">
 				<div class="inputs">
 					<label>
-						<span>Uppdrag</span>
-						<input type="text" id="task-input">
+						<span>Prioritet:</span>
+						<input type="number" id="priority-input" min="1" max="3" value="1">
 					</label>
 					<label>
-						<span>Prioritet</span>
-						<input type="number" id="priority-input">
+						<span>Uppdrag:</span>
+						<textarea id="task-input"></textarea>
 					</label>
-					<div class="submit-area">
-						<label>
-							<span>Vill du lägga till en ny todo?</span>
-							<button id="submit-todo">Lägg till</button>
-						</label>
-					</div>
+				</div>
+				<div class="submit-area">
+					<label>
+						<span>Vill du lägga till en ny todo?</span>
+						<button id="submit-todo">Lägg till</button>
+					</label>
 				</div>
 			</div>
+			<h2>Lista</h2>
+			<div id="todo-list"></div>
 		</div>
 	</main>
 </body>

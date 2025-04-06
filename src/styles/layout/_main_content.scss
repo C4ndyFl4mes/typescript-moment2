@@ -1,12 +1,141 @@
 // Main Content (main element)
 
-@use '../base/typography';
+@use "../base/typography";
 
 main {
     width: 95%;
-    max-width: 1200px;
-
+    max-width: 900px;
     margin: 0 auto;
 
     @extend %main-typography;
+}
+h1 {
+    justify-self: center;
+}
+.todo-frame {
+    width: 100%;
+    // background-color: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-add-section {
+    // width: inherit;
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.inputs {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    label {
+        display: flex;
+        flex-direction: column;
+    }
+    #priority-input {
+        @extend %main-typography;
+    }
+    #task-input {
+        min-width: fit-content;
+        min-height: fit-content;
+        @extend %main-typography;
+    }
+}
+.submit-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.submit-area>label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+       
+        max-width: fit-content;
+    }
+
+}
+
+#todo-list {
+    width: inherit;
+    display: flex;
+    flex-direction: column-reverse;
+    .todo-item {
+        padding: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        background-color: var(--todo-bg-color);
+        border-left: 8px ridge;
+        border-top: 1px solid black;
+        border-right: 8px groove;
+        border-bottom: 1px solid black;
+        border-radius: 50px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        column-gap: 1rem;
+
+        h2 {
+            align-self: center;
+            user-select: none;
+        }
+
+        label {
+            align-self: center;
+            text-align: justify;
+        }
+
+        
+    }
+    .todo-item:first-child {
+        border-top: 2px solid;
+    }
+    .todo-item:last-child {
+        border-bottom: 2px solid;
+    }
+    .todo-checkbox {
+        align-self: center;
+
+        cursor: pointer;
+        appearance: none;
+
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+        aspect-ratio: 1/1;
+
+        border: 2px solid black;
+        border-radius: 4px;
+
+        display: inline-block;
+        position: relative;
+    }
+    .todo-checkbox:checked {
+        border-color: #00ce0a;
+
+    }
+    .todo-checkbox:checked::after {
+        content: "✔";
+        font-size: 1.4rem;
+        position: absolute;
+        top: -0.35rem;
+        left: 0.1rem;
+        color: #00ce0a;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    main {
+        width: 100%;
+    }
+    .todo-add-section {
+        grid-template-columns: none;
+        grid-template-rows: auto auto;
+    }
 }
