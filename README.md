@@ -32,5 +32,36 @@ RenderTodos skapar HTMLElement och ett HTMLInputElement av typen checkBox för v
 Det finns fyra knappar som hanterar listan, en nollställningsknapp, en knapp som tar bort alla avklarade uppgifter, en knapp som endast visar oavklarade uppgifter och en knapp som visar alla uppgifter.
 
 ## TodoList
+Klassen TodoList hanterar listan av todos. TodoList-objektet initieras i Main.init() med en tom array i konstruktorns parameter. I konstruktorns kropp finns en if-sats som kollar om det finns en lista i LocalStorage och anger todos med den istället.
+Metoden addTodo kontrollerar om inmatningen är korrekt och skickar felmeddelande om det är inkorrekt. Vid korrekt inmatning skapas ett nytt todo-objekt, läggs in i listan och listan sorteras med höst priroitet (1) först.
+```ts
+public addTodo(task: string, priority: number): boolean {
+  const prio: TPriority | null = toTPriority(priority);
+  if (prio && task !== "") {
+    const todo: ITodo = {
+    task: task,
+    completed: false,
+    priority: prio,
+    hexID: this.randomHexID()
+    };
+    this.todos.push(todo);
+    this.sortByPriority();
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+Metoden randomHexID slumpar fram ett unikt tre-siffrig hexadecimal sträng, den kallar sig självt ifall det redan finns en med det ID:et.
+
+Den metod som kallas av checkboxen heter markTodoCompleted och tar in ett indexvärde som parameter. Indexvärdet är positionen i todo-listan. Den togglar mellan true och false när användaren klickar på checkboxen.
+
+Tre av de fyra knapparna som kontrollerar listan har var sin metod inuti TodoList-klassen:
+- Nollstälningsmetoden tömmer listan och raderar den från LocalStorage.
+- Rensa avklarade uppgifter metoden filtrerar ut alla avklarade uppgifter. _Konstig mening_.
+- Visa endast oavklarade uppgifter fungerar exakt som den ovan, men att den gör en kopia av arrayen istället och därmet inte blir permanent.
+- Den fjärde är ingen metod i TodoList-klassen, den kallar bara render med original arrayen i Main-klassen direkt i den anonyma funktionen för händelselyssnaren.
+
+Det finns två metoder, save och load, som hanterar todo-listan inför localStorage. De utnyttjar utility-klassen UStorage som hanterar localStorage, mer om det under rubriken Utility Klasser.
 
 ## Utility Klasser
